@@ -11,23 +11,23 @@
 #include <string.h>
 using namespace std;
 
-
+int ch = 256;
 
 int rehash(int tHash, string text, int l, int pLength, int z, int prime)
-{   
-            int f= tHash - text[l]*z;
-            
-            int g= text[l+pLength];
-            
-            tHash = (ch*(f) + g);
-            
-            tHash=tHash%prime;
-          
-            if (tHash <= -1)
-				
-                tHash = (tHash + prime);
-                
-            return tHash;
+{
+    int f= tHash - text[l]*z;
+    
+    int g= text[l+pLength];
+    
+    tHash = (ch*(f) + g);
+    
+    tHash=tHash%prime;
+    
+    if (tHash <= -1)
+        
+        tHash = (tHash + prime);
+    
+    return tHash;
     
 }
 bool setprime(int rem)
@@ -58,93 +58,93 @@ void rabinkarpsearch(string pattern){
     ifstream stringfile ("stringfile.txt");
     int timeCount = 0;
     int linenumber = 0;
-	int ch = 256;
+    
     while(getline(stringfile, text)){
         linenumber++;
-    int s=0;
-    int prime=0;
-    cout<<"\n\n------------RABIN KARP RESULTS FOR PATTERN "<<pattern<<"----------\n\n"<<endl;
-    
-    while(true){
-        timeCount++;
-        s =  rand() % 100 + 1985;
-        if(setprime(s))
-        {
-            prime= s;
-            break;
-        }
-    }
-    
-    int pLength = pattern.length();
-    int patlen = 0;
-    
-    int tLength = text.length();
-    
-    int j=0;
-    int pHash = 0; // pattern hash value
-    int tHash = 0; // text hash value
-    int freq=0;
-    
-    
-    
-    int z = 1; // hash variable
-    
-    for (int i = 1; i <= pLength - 1; i++)
-    {
-        z = (ch * z) % prime;
-        timeCount++;
+        int s=0;
+        int prime=0;
+        cout<<"\n\n------------RABIN KARP RESULTS FOR PATTERN "<<pattern<<"----------\n\n"<<endl;
         
-    }
-    
-    for (int j = 0; j < pLength; j++)
-    {
-        pHash = (ch * pHash + pattern[j]) % prime;
-        timeCount++;
-    }
-    // patHash=p;
-    
-    for (int j = 0; j < pLength; j++) {
-        tHash = (ch * tHash + text[j]) % prime;
-        timeCount++;
-    }
-    
+        while(true){
+            timeCount++;
+            s =  rand() % 100 + 1985;
+            if(setprime(s))
+            {
+                prime= s;
+                break;
+            }
+        }
+        
+        int pLength = pattern.length();
+        int patlen = 0;
+        
+        int tLength = text.length();
+        
+        int j=0;
+        int pHash = 0; // pattern hash value
+        int tHash = 0; // text hash value
+        int freq=0;
+        
+        
+        
+        int z = 1; // hash variable
+        
+        for (int i = 1; i <= pLength - 1; i++)
+        {
+            z = (ch * z) % prime;
+            timeCount++;
+            
+        }
+        
+        for (int j = 0; j < pLength; j++)
+        {
+            pHash = (ch * pHash + pattern[j]) % prime;
+            timeCount++;
+        }
+        // patHash=p;
+        
+        for (int j = 0; j < pLength; j++) {
+            tHash = (ch * tHash + text[j]) % prime;
+            timeCount++;
+        }
+        
         int offset = tLength - pLength;
-    
+        
         int l=0;
-    
+        
         
         while (l<=offset){
-
-         // Check if the hash values of pattern and current text window matches
- 
+            
+            // Check if the hash values of pattern and current text window matches
+            
             if ( pHash == tHash )
-        
+                
             {
-            //if the hash values of both pattern and text match
-            // We will check every character of the pattern with the current window of text input
-       
-               for ( j = 0; j < pLength; j++)
-            {
-                timeCount++;
-				
-                if (text[l+j] != pattern[j])
-                    break;
-            }
-            
-            if (j == pLength)
-                cout<<"Pattern found at index "<<l+pLength<<" at line "<<linenumber<<" and pattern matched is '"<<pattern<<"'\n"<<endl;
-            
-                rabinkarpoutputfile<<"Pattern found at index "<< l+pLength<<" at line "<<linenumber<<" and pattern matched is '"<<pattern<<"'\n"<<endl;
+                //if the hash values of both pattern and text match
+                // We will check every character of the pattern with the current window of text input
+                
+                for ( j = 0; j < pLength; j++)
+                {
+                    timeCount++;
+                    
+                    if (text[l+j] != pattern[j])
+                        break;
                 }
                 
-                //moving character by character forward in the text input
-				
-             if ( l < offset )
-        {
-			// we rehash the values if the pattern is not found
-			
-            tHash = rehash(tHash,text,l,pLength,z,prime);
-        }
+                if (j == pLength)
+                    cout<<"Pattern found at index "<<l+pLength<<" at line "<<linenumber<<" and pattern matched is '"<<pattern<<"'\n"<<endl;
+                
+                rabinkarpoutputfile<<"Pattern found at index "<< l+pLength<<" at line "<<linenumber<<" and pattern matched is '"<<pattern<<"'\n"<<endl;
+            }
+            
+            //moving character by character forward in the text input
+            
+            if ( l < offset )
+            {
+                // we rehash the values if the pattern is not found
+                
+                tHash = rehash(tHash,text,l,pLength,z,prime);
+            }
             l++;
         }
     }
@@ -171,7 +171,7 @@ void lcsssearch(string line2){ //By Himanshu Ahuja
     ifstream myinputfile ("stringfile.txt");
     
     while(getline( myinputfile , line1 )){
-    
+        
         
         lcsslinecount++;
         
@@ -193,7 +193,7 @@ void lcsssearch(string line2){ //By Himanshu Ahuja
         c[0][0] = 0;
         
         for(int i = 1; i <= m; i++)
-        
+            
             c[i][0] = 0;
         for(int j = 1; j <= n; j++)
             c[0][j] = 0;
@@ -244,7 +244,7 @@ void lcsssearch(string line2){ //By Himanshu Ahuja
         int i = m,j=n;
         
         while(i > 0 && j > 0)
-        
+            
         {
             if(b[i][j] == 'L')
                 j--;
